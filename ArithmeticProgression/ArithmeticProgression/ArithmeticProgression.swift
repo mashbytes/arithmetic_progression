@@ -7,48 +7,39 @@ class ArithmeticProgression {
             return []
         }
 
-        let difference = calculateDifference(in: list)
-        if difference == 0 {
+        let step = calculateStep(in: list)
+        if step == 0 {
             return []
         }
-        
-        let multiplier = last > first ? 1 : -1
-        
-        let (_, missing): (Int, [Int]) = list[1...].reduce((first, [])) { acc, next in
-            let (previous, missing) = acc
-            if (next - previous) == difference {
-                return (next, missing)
-            }
-            let numberToInsert = (next - previous) / difference
-            if numberToInsert == 0 {
-                return (next, missing)
-            }
-            let toInsert = sequence(first: previous + (difference * multiplier), next: { $0 + (difference * multiplier)  }).prefix(abs(numberToInsert) - 1)
-            
-            return (next, missing + toInsert)
-        }
 
+        let (_, missing): (Int, [Int]) = stride(from: first, to: last, by: step).reduce((0, [])) { acc, next in
+            let (index, missing) = acc
+            if list[index] == next {
+                return (index+1, missing)
+            }
+            return (index, missing + [next])
+        }
+        
         return missing
     }
     
-    class func calculateDifference(in list: [Int]) -> Int {
-        let (_, difference) = list[1...].reduce((list.first!, Int.max)) { acc, next in
-            let (previous, minimumDifference) = acc
-            let difference = next - previous
+    class func calculateStep(in list: [Int]) -> Int {
+        guard let first = list.first, let last = list.last else {
+            return 0
+        }
+
+        let (_, step) = list[1...].reduce((list.first!, Int.max)) { acc, next in
+            let (previous, minStep) = acc
+            let thisStep = next - previous
             
-            return (next, min(abs(difference), minimumDifference))
+            return (next, min(abs(thisStep), minStep))
         }
-        return difference
-    }
-    
-    class func array(sized size: Int, start: Int, generator: (Int) -> Int) -> [Int] {
-        return [0..<size].reduce([start]) { acc, _ in
-            guard let previous = acc.last else {
-                return acc
-            }
-            let next = generator(previous)
-            return acc + [next]
-        }
+
+        // detemine sign of step i.e. +ive / -ive
+        let isAscending = last > first
+        let signMultiplier = isAscending ? 1 : -1
+
+        return step * signMultiplier
     }
     
 }
