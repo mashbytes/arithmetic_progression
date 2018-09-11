@@ -3,7 +3,7 @@ import Foundation
 class ArithmeticProgression {
     
     class func findMissingValues(in list: [Int]) -> [Int] {
-        guard let first = list.first, let last = list.last, list.count > 2 else {
+        guard let first = list.first, list.count > 2 else {
             return []
         }
 
@@ -11,29 +11,32 @@ class ArithmeticProgression {
         if step == 0 {
             return []
         }
-
-        let (_, missing): (Int, [Int]) = stride(from: first, to: last, by: step).reduce((0, [])) { acc, next in
-            let (index, missing) = acc
-            if list[index] == next {
-                return (index+1, missing)
-            }
-            return (index, missing + [next])
-        }
         
-        return missing
+        let allMissing: [Int] = list[1...].reduce((first, [])) { acc, next in
+            let (previous, missing) = acc
+            let thisStep = next - previous
+            if thisStep != step {
+                let from = previous + step
+                let to = next
+                return (next, missing + stride(from: from, to: to, by: step))
+            }
+            return (next, missing)
+        }.1
+
+        return allMissing
     }
     
-    class func calculateStep(in list: [Int]) -> Int {
+    private class func calculateStep(in list: [Int]) -> Int {
         guard let first = list.first, let last = list.last else {
             return 0
         }
 
-        let (_, step) = list[1...].reduce((list.first!, Int.max)) { acc, next in
+        let step = list[1...].reduce((first, Int.max)) { acc, next in
             let (previous, minStep) = acc
             let thisStep = next - previous
             
             return (next, min(abs(thisStep), minStep))
-        }
+        }.1
 
         // detemine sign of step i.e. +ive / -ive
         let isAscending = last > first
