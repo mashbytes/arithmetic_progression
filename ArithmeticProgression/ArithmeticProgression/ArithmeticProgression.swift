@@ -3,27 +3,12 @@ import Foundation
 class ArithmeticProgression {
     
     class func findMissingValues(in list: [Int]) -> [Int] {
-        guard let first = list.first, list.count > 2 else {
+        guard list.count > 2 else {
             return []
         }
 
         let step = calculateStep(in: list)
-        if step == 0 {
-            return []
-        }
-        
-        let allMissing: [Int] = list[1...].reduce((first, [])) { acc, next in
-            let (previous, missing) = acc
-            let thisStep = next - previous
-            if thisStep != step {
-                let from = previous + step
-                let to = next
-                return (next, missing + stride(from: from, to: to, by: step))
-            }
-            return (next, missing)
-        }.1
-
-        return allMissing
+        return determineMissingValues(in: list, usingStep: step)
     }
     
     private class func calculateStep(in list: [Int]) -> Int {
@@ -31,6 +16,7 @@ class ArithmeticProgression {
             return 0
         }
 
+        // start at list[1] so that we can use the first value as the previous value
         let step = list[1...].reduce((first, Int.max)) { acc, next in
             let (previous, minStep) = acc
             let thisStep = next - previous
@@ -45,5 +31,22 @@ class ArithmeticProgression {
         return step * signMultiplier
     }
     
+    private class func determineMissingValues(in list: [Int], usingStep step: Int) -> [Int] {
+        guard let first = list.first, step != 0 else {
+            return []
+        }
+        return list[1...].reduce((first, [])) { acc, next in
+            let (previous, missing) = acc
+            let thisStep = next - previous
+            if thisStep != step {
+                let from = previous + step
+                let to = next
+                return (next, missing + stride(from: from, to: to, by: step))
+            }
+            return (next, missing)
+        }.1
+    }
+    
+
 }
 

@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		602DDFE62147C396005322D2 /* ArithmeticProgression.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 602DDFDC2147C396005322D2 /* ArithmeticProgression.framework */; };
 		602DDFEB2147C396005322D2 /* ArithmeticProgressionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602DDFEA2147C396005322D2 /* ArithmeticProgressionTests.swift */; };
-		602DDFED2147C396005322D2 /* ArithmeticProgression.h in Headers */ = {isa = PBXBuildFile; fileRef = 602DDFDF2147C396005322D2 /* ArithmeticProgression.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		602DDFF72147C42E005322D2 /* ArithmeticProgression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602DDFF62147C42E005322D2 /* ArithmeticProgression.swift */; };
 /* End PBXBuildFile section */
 
@@ -25,7 +24,6 @@
 
 /* Begin PBXFileReference section */
 		602DDFDC2147C396005322D2 /* ArithmeticProgression.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ArithmeticProgression.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		602DDFDF2147C396005322D2 /* ArithmeticProgression.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArithmeticProgression.h; sourceTree = "<group>"; };
 		602DDFE02147C396005322D2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		602DDFE52147C396005322D2 /* ArithmeticProgressionTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ArithmeticProgressionTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		602DDFEA2147C396005322D2 /* ArithmeticProgressionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArithmeticProgressionTests.swift; sourceTree = "<group>"; };
@@ -73,7 +71,6 @@
 		602DDFDE2147C396005322D2 /* ArithmeticProgression */ = {
 			isa = PBXGroup;
 			children = (
-				602DDFDF2147C396005322D2 /* ArithmeticProgression.h */,
 				602DDFE02147C396005322D2 /* Info.plist */,
 				602DDFF62147C42E005322D2 /* ArithmeticProgression.swift */,
 			);
@@ -96,7 +93,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				602DDFED2147C396005322D2 /* ArithmeticProgression.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
